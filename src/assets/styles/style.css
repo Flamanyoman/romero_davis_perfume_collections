@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box !important;
+  transition: all 50ms ease-in-out !important;
+}
+
+.container {
+  width: 95% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.clk,
+a,
+* a,
+*[href],
+button,
+* button {
+  cursor: pointer !important;
+}
+
+.blurBg {
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+}
+
+.header .menu {
+  display: block;
+  background-color: transparent;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.header .menu div {
+  display: block;
+  width: 1.5rem;
+  padding: 0.1rem;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  margin: 0.3rem 0;
+}
+
+.banner {
+  background: url("../imgs/pexels-rameshkambattan-16025659.jpg");
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: contain;
+  background-attachment: fixed;
+  padding-top: 5rem;
+  color: white !important;
+  background-color: purple;
+}
+
+.bg_img {
+  background: url("../imgs/pexels-rameshkambattan-16025659.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.topBrands {
+  width: 100%;
+  display: grid;
+  grid-template: auto/repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-flow: row;
+  gap: 2rem;
+}
+.topBrands .item {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+}
+.topBrands .item img {
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 6rem;
+  aspect-ratio: 1/1;
+}
+@media screen and (max-width: 768px) {
+  .topBrands {
+    grid-template: auto/repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
+@media screen and (max-width: 468px) {
+  .topBrands {
+    width: 90%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  html body {
+    width: 768px !important;
+    margin: auto !important;
+  }
+}
+@media screen and (min-height: 1000px) {
+  html {
+    min-height: 768px !important;
+  }
+  html .outerContainer {
+    max-height: 1152px !important;
+  }
+}/*# sourceMappingURL=style.css.map */

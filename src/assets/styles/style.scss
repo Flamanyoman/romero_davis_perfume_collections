@@ -1,0 +1,166 @@
+// /////////////////////variables//////////////////////////////
+$primaryColor: #302aaf;
+$maxHeight: 100svh;
+$mediaWidth: 768px;
+$maxScreenWidth: 768px;
+$maxScreenHeight: 1000px;
+// variables
+$blurbg: rgba(255, 255, 255, 0.1);
+$blur: blur(6px);
+// //////////////////////functions//////////////////////////////
+@mixin is_mediaQuery_MaxWidth_Yes($width: 768px, $isMaxWidth: true) {
+    @if $isMaxWidth and $width {
+        @media screen and (max-width: $width) {
+            @content;
+        }
+    } @else if $isMaxWidth {
+        @media screen and (max-width: $mediaWidth) {
+            @content;
+        }
+    } @else if not $isMaxWidth and $width {
+        @media screen and (min-width: $width) {
+            @content;
+        }
+    } @else {
+        @media screen and (min-width: $mediaWidth) {
+            @content;
+        }
+    }
+}
+
+@mixin BackdropFilterBg {
+    // 👌 glassmophism
+    background: $blurbg;
+    backdrop-filter: $blur;
+}
+// ///////////////////////styles////////////////////////////////
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box !important;
+    transition: all 50ms ease-in-out !important;
+}
+
+.container {
+    width: 95% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.clk,
+a,
+* a,
+*[href],
+button,
+* button {
+    cursor: pointer !important;
+}
+
+.blurBg {
+    @include BackdropFilterBg;
+}
+
+.header {
+    & .menu {
+        display: block;
+        background-color: transparent;
+        width: fit-content;
+        height: fit-content;
+
+        div {
+            display: block;
+            width: 1.5rem;
+            padding: 0.1rem;
+            background-color: white;
+            border: none;
+            border-radius: 10px;
+            margin: 0.3rem 0;
+        }
+    }
+}
+
+.banner {
+    // background: url("../imgs/homeimage_desktop.webp");
+    background: url("../imgs/pexels-rameshkambattan-16025659.jpg");
+    background-position: center;
+    background-repeat: repeat-y;
+    background-size: contain;
+    background-attachment: fixed;
+    padding-top: 5rem;
+    color: white !important;
+    background-color: purple;
+}
+
+.bg_img {
+    background: url("../imgs/pexels-rameshkambattan-16025659.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    // background-color: purple;
+}
+
+.topBrands {
+    $cardWidth: 280px;
+    width: 100%;
+    display: grid;
+    grid-template: auto / repeat(auto-fill, minmax(250px, 1fr)); // 👌
+    grid-auto-flow: row;
+    gap: 2rem;
+
+    .item {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+
+        img {
+            display: block;
+            object-fit: cover;
+            width: 6rem;
+            aspect-ratio: 1/1;
+        }
+
+        // &:hover {
+        //     outline: rgba(white, 0.5) !important;
+        //     background: rgba(black, 0.4);
+        // }
+    }
+
+    @include is_mediaQuery_MaxWidth_Yes {
+        grid-template: auto / repeat(auto-fill, minmax(200px, 1fr)); // 👌
+        gap: 1rem;
+    }
+
+    @include is_mediaQuery_MaxWidth_Yes(468px, true) {
+        width: 90%;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+// .restrict_mobile {
+@media screen and (min-width: $maxScreenWidth) {
+    html {
+        // background-color: $baseColor;
+
+        body {
+            width: $maxScreenWidth !important;
+            margin: auto !important;
+        }
+    }
+}
+
+@media screen and (min-height: $maxScreenHeight) {
+    html {
+        min-height: $maxScreenWidth !important;
+        // background-color: $baseColor;
+
+        .outerContainer {
+            max-height: calc($maxScreenWidth * 1.5) !important;
+        }
+    }
+}
+// }
