@@ -38,12 +38,15 @@ export default function ProfilePage() {
               Signout
             </NavLink>
           </div>
-          <p className="container flex items-center justify-between">
+          <p className="container flex items-center justify-between text-[0.8rem]">
             <span>
               Account balance: &#8358;<span>3,000</span>
             </span>{" "}
             <span>
-              Cumulative income: &#8358;<span>32,000</span>
+              Total Balance: &#8358;<span>3,000</span>
+            </span>{" "}
+            <span>
+              Income: &#8358;<span>32,000</span>
             </span>
           </p>
         </div>
