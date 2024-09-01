@@ -4,6 +4,7 @@ $maxHeight: 100svh;
 $mediaWidth: 768px;
 $maxScreenWidth: 768px;
 $maxScreenHeight: 1000px;
+$reducedOp: rgba(0, 0, 0, 0.756);
 // variables
 $blurbg: rgba(255, 255, 255, 0.1);
 $blur: blur(6px);
@@ -81,22 +82,27 @@ button,
 
 .banner {
     // background: url("../imgs/homeimage_desktop.webp");
-    background: url("../imgs/pexels-rameshkambattan-16025659.jpg");
+    // background: url("../imgs/pexels-rameshkambattan-16025659.jpg");
+    background: url("../imgs/dsk_img.jpg");
     background-position: center;
     background-repeat: repeat-y;
-    background-size: contain;
+    background-size: cover;
     background-attachment: fixed;
     padding-top: 5rem;
     color: white !important;
-    background-color: purple;
+    background-color: $reducedOp;
+    background-blend-mode: darken;
 }
 
 .bg_img {
-    background: url("../imgs/pexels-rameshkambattan-16025659.jpg");
+    // background: url("../imgs/pexels-rameshkambattan-16025659.jpg");
+    background: url("../imgs/dsk_img.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    background-color: $reducedOp;
+    background-blend-mode: darken;
     // background-color: purple;
 }
 

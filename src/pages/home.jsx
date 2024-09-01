@@ -26,7 +26,7 @@ export default function Homepage() {
           </div>
         </div>
 
-        <div className='w-full my-8 bg-white'>
+        <div className='w-full pt-8 bg-white'>
           <button className='block container bg-[#302aaf] bg_img text-white text-lg font-bold py-4 rounded'>
             SHOP ALL PERFUMES{' '}
           </button>

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
-import logo from '/imgs/fragrancex_logo.svg'
+import logo from '/imgs/logo.png'
 import search_icon from '/imgs/search.svg'
 
 export default function HeaderComponent() {
@@ -14,8 +14,9 @@ export default function HeaderComponent() {
                         <div></div>
                         <div></div>
                     </div>
-                    <img src={logo} alt={logo} className="block logo w-[9rem] mt-4" />
                 </div>
+
+                <img src={logo} alt={logo} className="block logo w-[3.5rem] mt-4" />
 
                 <NavLink to="#" className="text-2xl text-white cart clk"><FaShoppingCart /></NavLink>
             </div>

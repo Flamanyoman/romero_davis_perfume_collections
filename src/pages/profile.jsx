@@ -14,7 +14,7 @@ export default function ProfilePage() {
   return (
     <section className="_min-h-screen">
       <div
-        className={`!bg-[url('/imgs/pexels-rameshkambattan-16025659.jpg')] bg-cover bg-left-top bg-fixed h-[40vh]`}
+        className={`bg_img bg-cover bg-left-top bg-fixed h-[40vh]`}
       >
         <div className="container flex flex-col items-center justify-between !text-[white] !font-bold h-full pt-4 pb-2">
           <div className="container flex items-center justify-between">
@@ -32,7 +32,7 @@ export default function ProfilePage() {
           <div className="flex flex-col items-center justify-center">
             <span>09063698598</span>
             <NavLink
-              to="/send_receipt"
+              to="/signin"
               className="block px-4 py-2 rounded bg-[#302aaf] mt-2"
             >
               Signout

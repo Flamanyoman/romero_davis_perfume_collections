@@ -7,7 +7,7 @@ export default function SendReceipt() {
 
     return (
         <section className='relative w-full min-h-screen'>
-            <div className={`!bg-[url('/imgs/homeimage_desktop.webp')] bg-cover bg-left-top bg-fixed h-[40vh]`}>
+            <div className={`bg_img bg-cover bg-left-top bg-fixed h-[40vh]`}>
                 <div className="container flex flex-col items-center justify-between !text-[white] !font-bold h-full pt-4 pb-2">
                     <div className='container flex items-center justify-between'>
                         <NavLink to="/recharge" className="-mt-2 text-4xl font-bold hover:text-[#302aaf]">&#8249;</NavLink>
@@ -22,12 +22,12 @@ export default function SendReceipt() {
             </div>
             <div className='container min-h-[20vh] py-4 flex flex-wrap gap-2 !pb-[100px]'>
                 <nav className='container flex flex-col items-center justify-between w-full gap-2'>
-                    <NavLink className="flex justify-between items-center w-full bg-[#302aaf] text-white p-4 rounded"><span className='text-2xl'><BsTelegram /></span><span>Telegram Support</span><span className='-mt-2 text-xl font-bold text-white scale-150'>&#8250;</span></NavLink>
-                    <NavLink className="flex justify-between items-center w-full bg-[#302aaf] text-white p-4 rounded"><span className='text-2xl'><BsWhatsapp /></span><span>Whatsapp Support</span><span className='-mt-2 text-xl font-bold text-white scale-150'>&#8250;</span></NavLink>
-                    <NavLink className="flex justify-between items-center w-full bg-[#302aaf] text-white p-4 rounded"><span className='text-2xl'><BsTelegram /></span><span>Telegram Channel</span><span className='-mt-2 text-xl font-bold text-white scale-150'>&#8250;</span></NavLink>
-                    <NavLink className="flex justify-between items-center w-full bg-[#302aaf] text-white p-4 rounded"><span className='text-2xl'><BsTelegram /></span><span>Telegram Group</span><span className='-mt-2 text-xl font-bold text-white scale-150'>&#8250;</span></NavLink>
+                    <NavLink className="flex justify-between items-center w-full bg_img text-white p-4 rounded"><span className='text-2xl'><BsTelegram /></span><span>Telegram Support</span><span className='-mt-2 text-xl font-bold text-white scale-150'>&#8250;</span></NavLink>
+                    <NavLink className="flex justify-between items-center w-full bg_img text-white p-4 rounded"><span className='text-2xl'><BsWhatsapp /></span><span>Whatsapp Support</span><span className='-mt-2 text-xl font-bold text-white scale-150'>&#8250;</span></NavLink>
+                    <NavLink className="flex justify-between items-center w-full bg_img text-white p-4 rounded"><span className='text-2xl'><BsTelegram /></span><span>Telegram Channel</span><span className='-mt-2 text-xl font-bold text-white scale-150'>&#8250;</span></NavLink>
+                    <NavLink className="flex justify-between items-center w-full bg_img text-white p-4 rounded"><span className='text-2xl'><BsTelegram /></span><span>Telegram Group</span><span className='-mt-2 text-xl font-bold text-white scale-150'>&#8250;</span></NavLink>
                 </nav>
-                <p className='container bg-[#302aaf] p-3 rounded text-white text-[.8rem] mt-3'>
+                <p className='container bg_img p-3 rounded text-white text-[.8rem] mt-3'>
                     <span className='block w-full'>1. If you have any questions about our platform, please contact our online customer service and he will answer all your questions.</span>
                     <span className='block w-full'>2. If our online customer service does not respond to your message in time, please wait patiently. This is because there are too many messages. Our online customer service will reply to your message as soon as possible. Thank you for your understanding and support!</span>
                     <span className='block w-full'>3. Official personnel will not ask you for your login password, please pay attention to account security.</span>

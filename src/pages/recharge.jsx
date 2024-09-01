@@ -37,7 +37,7 @@ export default function RechargeAccount() {
 
     return (
         <section className='relative w-full h-fit'>
-            <div className={`!bg-[url('/imgs/pexels-rameshkambattan-16025659.jpg')] bg-cover bg-left-top bg-fixed h-[40vh]`}>
+            <div className={`bg_img bg-cover bg-left-top bg-fixed h-[40vh]`}>
                 <div className="container flex flex-col items-center justify-between !text-[white] !font-bold h-full pt-4 pb-2">
                     <div className='container flex items-center justify-between'>
                         <NavLink to="/" className="-mt-2 text-4xl font-bold hover:text-[#302aaf]">&#8249;</NavLink>
