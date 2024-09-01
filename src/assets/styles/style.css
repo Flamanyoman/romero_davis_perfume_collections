@@ -23,7 +23,7 @@ button,
 .blurBg {
   background: rgba(255, 255, 255, 0.1);
   -webkit-backdrop-filter: blur(6px);
-          backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 .header .menu {
@@ -45,18 +45,17 @@ button,
 }
 
 .banner {
-  background: url("../imgs/pexels-rameshkambattan-16025659.jpg");
+  background: url('https://images.unsplash.com/photo-1598121443852-ff347aff7520?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   background-position: center;
-  background-repeat: repeat-y;
-  background-size: contain;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-attachment: fixed;
-  padding-top: 5rem;
   color: white !important;
   background-color: purple;
 }
 
 .bg_img {
-  background: url("../imgs/pexels-rameshkambattan-16025659.jpg");
+  background: url('../imgs/pexels-rameshkambattan-16025659.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -81,7 +80,7 @@ button,
 .topBrands .item img {
   display: block;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   width: 6rem;
   aspect-ratio: 1/1;
 }
@@ -112,4 +111,4 @@ button,
   html .outerContainer {
     max-height: 1152px !important;
   }
-}/*# sourceMappingURL=style.css.map */
+} /*# sourceMappingURL=style.css.map */
