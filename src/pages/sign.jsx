@@ -1,66 +1,57 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import { SiGnuprivacyguard } from 'react-icons/si';
 import { VscSignIn } from 'react-icons/vsc';
+import axios from 'axios';
+import { baseUrl } from '../../constants/constants';
 
 export default function SignPage({ isSignIn }) {
-  const [random, setRandom] = useState(0);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     mobile: '',
     password: '',
     confirmPassword: '',
-    inviteCode: '',
+    invitedBy: searchParams.get('By') || '',
     verificationCode: '',
   });
-
-  const [errors, setErrors] = useState({
-    mobile: '',
-    password: '',
-    confirmPassword: '',
-    inviteCode: '',
-    verificationCode: '',
-  });
-
-  function getRandomArbitrary(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [random, setRandom] = useState(generateRandomCode());
 
   useEffect(() => {
-    if (isSignIn) setRandom(getRandomArbitrary(1000, 9999));
+    if (!isSignIn) setRandom(generateRandomCode());
   }, [isSignIn]);
+
+  function generateRandomCode() {
+    return Math.floor(Math.random() * 9000) + 1000;
+  }
 
   const validate = () => {
     const newErrors = {};
 
-    // Mobile number validation
-    const mobileRegex = /^0[789][01]\d{8}$/;
-    if (!mobileRegex.test(formData.mobile)) {
+    if (!/^0[789][01]\d{8}$/.test(formData.mobile)) {
       newErrors.mobile = 'Write 11 digit phone number';
     }
 
-    // Password validation
-    const passwordRegex = /^(?=.*\d).{4,}$/;
-    if (!passwordRegex.test(formData.password)) {
+    if (!/^(?=.*\d).{4,}$/.test(formData.password)) {
       newErrors.password =
         'Password must be more than 3 characters and contain a number';
     }
 
-    // Confirm password validation
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
+    if (!isSignIn) {
+      if (formData.password !== formData.confirmPassword) {
+        newErrors.confirmPassword = 'Passwords do not match';
+      }
 
-    // Invitation code validation
-    if (formData.inviteCode && formData.inviteCode.length !== 6) {
-      newErrors.inviteCode = 'Type in a valid invite code';
-    }
+      if (formData.invitedBy && formData.invitedBy.length < 10) {
+        newErrors.invitedBy = 'Type in a valid invite code';
+      }
 
-    // Verification code validation
-    if (parseInt(formData.verificationCode) !== random) {
-      newErrors.verificationCode = 'Verification code does not match';
-      setRandom(getRandomArbitrary(1000, 9999)); // Change the random number if it doesn't match
+      if (parseInt(formData.verificationCode) !== random) {
+        newErrors.verificationCode = 'Verification code does not match';
+        setRandom(generateRandomCode());
+      }
     }
 
     setErrors(newErrors);
@@ -69,129 +60,169 @@ export default function SignPage({ isSignIn }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: '' }); // Clear the error for the field being edited
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: '',
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      // Form submission logic here
-      console.log('Form submitted:', formData);
+    if (!validate()) return;
+
+    setLoading(true);
+    try {
+      const endpoint = isSignIn ? '/signin' : '/signup';
+      const payload = isSignIn
+        ? { phoneNum: formData.mobile, password: formData.password }
+        : {
+            phoneNum: formData.mobile,
+            password: formData.password,
+            invitedBy: formData.invitedBy.replace(/^ref112/, ''),
+          };
+
+      const { data } = await axios.post(`${baseUrl}${endpoint}`, payload);
+
+      window.localStorage.setItem('userInfo', JSON.stringify(data.user));
+      navigate('/');
+    } catch (err) {
+      handleErrors(
+        err.response?.data?.message || 'An error occurred. Please try again.'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleErrors = (message) => {
+    const errorMap = {
+      'Phone number not found': 'mobile',
+      'User already exists': 'mobile',
+      'Invalid password': 'password',
+      'Wrong referral code': 'invitedBy',
+    };
+
+    const field = Object.keys(errorMap).find((key) => message.includes(key));
+    if (field) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [errorMap[field]]: field,
+      }));
+    } else {
+      alert('An error occurred. Please try again.');
     }
   };
 
   return (
-    <section className='bg-[#302aaf] text-white h-screen flex flex-col justify-center items-center'>
+    <section className='bg-[#0a263a] text-white h-screen flex flex-col justify-center items-center'>
       <p className='flex items-center justify-center w-full mb-4 text-3xl'>
         {isSignIn ? <VscSignIn /> : <SiGnuprivacyguard />}
       </p>
       <h1 className='flex items-center justify-center w-full mb-4 text-2xl'>
         {isSignIn ? 'SIGNIN' : 'SIGNUP'}
       </h1>
-      <form action='#' className='w-2/4' onSubmit={handleSubmit}>
-        <div className='flex flex-col items-start w-full justify-center'>
-          <label htmlFor='mobile'>Mobile</label>
-          <input
-            type='number'
-            name='mobile'
-            id='mobile'
-            placeholder='+234...'
-            className='block w-full p-1 mt-1 mb-3 rounded indent-4'
-            value={formData.mobile}
-            onChange={handleChange}
-          />
-          {errors.mobile && (
-            <span className='text-red-500'>{errors.mobile}</span>
-          )}
-        </div>
-
-        <div className='flex flex-col items-start w-full justify-center'>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            name='password'
-            id='password'
-            placeholder='******'
-            className='block w-full p-1 mt-1 mb-3 rounded indent-4'
-            value={formData.password}
-            onChange={handleChange}
-          />
-          {errors.password && (
-            <span className='text-red-500'>{errors.password}</span>
-          )}
-        </div>
-
+      <form className='w-2/4' onSubmit={handleSubmit}>
+        <InputField
+          id='mobile'
+          name='mobile'
+          type='number'
+          placeholder='+234...'
+          value={formData.mobile}
+          onChange={handleChange}
+          error={errors.mobile}
+        />
+        <InputField
+          id='password'
+          name='password'
+          type='password'
+          placeholder='******'
+          value={formData.password}
+          onChange={handleChange}
+          error={errors.password}
+        />
         {!isSignIn && (
           <>
-            <div className='flex flex-col items-start w-full justify-center'>
-              <label htmlFor='confirmPassword'>Confirm password</label>
-              <input
-                type='password'
-                name='confirmPassword'
-                id='confirmPassword'
-                placeholder='******'
-                className='block w-full p-1 mt-1 mb-3 rounded indent-4'
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
-              {errors.confirmPassword && (
-                <span className='text-red-500'>{errors.confirmPassword}</span>
-              )}
-            </div>
-
-            <div className='flex flex-col items-start w-full justify-center'>
-              <label htmlFor='inviteCode'>Invitation code (optional)</label>
-              <input
+            <InputField
+              id='confirmPassword'
+              name='confirmPassword'
+              type='password'
+              placeholder='******'
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              error={errors.confirmPassword}
+            />
+            <InputField
+              id='invitedBy'
+              name='invitedBy'
+              type='text'
+              placeholder='Ze4E88'
+              value={formData.invitedBy}
+              onChange={handleChange}
+              error={errors.invitedBy}
+            />
+            <div className='flex flex-row items-center w-full gap-1 justify-between'>
+              <InputField
+                id='verificationCode'
+                name='verificationCode'
                 type='text'
-                name='inviteCode'
-                id='inviteCode'
-                placeholder='Ze4E88'
-                className='block w-full p-1 mt-1 mb-3 rounded indent-4'
-                value={formData.inviteCode}
+                placeholder='????'
+                value={formData.verificationCode}
                 onChange={handleChange}
+                error={errors.verificationCode}
               />
-              {errors.inviteCode && (
-                <span className='text-red-500'>{errors.inviteCode}</span>
-              )}
-            </div>
-
-            <div className='flex flex-row items-start w-full gap-1 justify-between'>
-              <div className='flex flex-col items-start w-3/4 justify-center'>
-                <label htmlFor='verificationCode'>Verification code</label>
-                <input
-                  type='text'
-                  name='verificationCode'
-                  id='verificationCode'
-                  placeholder='????'
-                  className='block w-full p-1 mt-1 mb-3 rounded indent-4'
-                  value={formData.verificationCode}
-                  onChange={handleChange}
-                />
-                {errors.verificationCode && (
-                  <span className='text-red-500'>
-                    {errors.verificationCode}
-                  </span>
-                )}
-              </div>
-              <p className='self-end h-full w-1/4 text-center font-bold px-1 py-1 mt-1 mb-3 bg-white rounded text-[#302aaf]'>
-                {random !== 0 ? random : '????'}
-              </p>
+              <span className='w-1/4 p-1 text-center bg-white text-blue-500 rounded'>
+                {random}
+              </span>
             </div>
           </>
         )}
-
-        <button className='block px-4 py-1 my-2 bg-white rounded text-[#302aaf] font-bold'>
-          Sign
-        </button>
-        <p>
-          {isSignIn ? "Don't" : 'Already'} have an account,{' '}
-          <NavLink to={isSignIn ? '/signup' : '/signin'} className='underline'>
-            {isSignIn ? 'Signup' : 'Signin'}
-          </NavLink>
-          .
-        </p>
+        <div className='flex flex-col items-start w-full justify-center'>
+          <button
+            type='submit'
+            className='bg-[#1a5b82] text-black rounded w-full p-2'
+            disabled={loading}
+          >
+            {loading ? '...' : isSignIn ? 'Sign In' : 'Sign Up'}
+          </button>
+        </div>
       </form>
+      <p className='mt-4 text-center text-sm'>
+        {isSignIn ? "Don't have an account?" : 'Already have an account?'}
+        <NavLink
+          to={isSignIn ? '/signup' : '/signin'}
+          className='text-blue-500 font-bold ml-1'
+        >
+          {isSignIn ? 'Sign Up' : 'Sign In'}
+        </NavLink>
+      </p>
     </section>
   );
 }
+
+const InputField = ({
+  id,
+  name,
+  type,
+  placeholder,
+  value,
+  onChange,
+  error,
+}) => (
+  <div className='flex flex-col items-start w-full justify-center'>
+    <label htmlFor={id}>{placeholder}</label>
+    <input
+      type={type}
+      name={name}
+      id={id}
+      placeholder={placeholder}
+      className='block w-full p-1 mt-1 mb-3 rounded indent-4 text-black'
+      value={value}
+      onChange={onChange}
+    />
+    {error && <span className='text-red-500'>{error}</span>}
+  </div>
+);

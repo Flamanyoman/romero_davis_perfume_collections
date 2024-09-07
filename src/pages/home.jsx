@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import HeaderComponent from '../components/header/header';
 import FooterComponent from '../components/footer/footer';
 import ProductsComponents from '../components/products/items';
@@ -7,12 +8,17 @@ import trusted from '/imgs/trusted.svg';
 import fastfreeshipping from '/imgs/fastfreeshipping.svg';
 
 export default function Homepage() {
+  // Create a ref for the ProductsComponents section
+  const productsRef = useRef(null);
+
+  
+
   return (
     <section className='h-screen bg-slate-400'>
       <HeaderComponent />
       <main className='w-full'>
         <p className='flex items-center justify-center w-full p-3 bg-white'>
-          <img src={stars} alt={stars} className='mr-3' /> OVER 20 MILLION
+          <img src={stars} alt={stars} className='mr-3' /> OVER 20 THOUSAND
           CUSTOMERS
         </p>
 
@@ -26,13 +32,20 @@ export default function Homepage() {
           </div>
         </div>
 
-        <div className='w-full my-8 bg-white'>
+        <div className='w-full pt-8 bg-white'>
           <button className='block container bg-[#302aaf] bg_img text-white text-lg font-bold py-4 rounded'>
             SHOP ALL PERFUMES{' '}
           </button>
           <div className='w-full bg-[#302aaf] bg_img'>
-            <marquee className='block w-3/4 mx-auto mt-8 px-12  text-white text-lg font-bold py-4'>
-              Free Shipping Over $35
+            <marquee className='block full mx-auto mt-8 px-12  text-white text-lg font-bold py-4'>
+              0815*****297, 0803*****146, 0907*****485, 0701*****173,
+              0907*****827, 0813*****453, 0813*****042, 0815*****384,
+              0807*****264, 0902*****169, 0810*****427, 0705*****656
+              0813*****243, 0705*****639, 0813*****656, 0808*****835,
+              0816*****811, 0803*****947, 0816*****618, 0706*****017,
+              0901*****537, 0705*****790, 0816*****339, 0708*****768,
+              0902*****167, 0706*****940, 0906*****299, 0810*****257,
+              0703*****985, 0814*****767
             </marquee>
           </div>
         </div>
@@ -68,7 +81,10 @@ export default function Homepage() {
             </p>
           </div>
         </div>
-        <ProductsComponents />
+        {/* Pass the ref to ProductsComponents */}
+        <div ref={productsRef}>
+          <ProductsComponents />
+        </div>
       </main>
       <FooterComponent />
     </section>

@@ -1,45 +1,72 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState } from 'react';
+import { useGoBack } from '../utility/goBack';
 // import noList from "/imgs/no.png";
 
 export default function Income() {
-    const [error] = useState(true);
+  const [error] = useState(true);
+  const goBack = useGoBack();
 
-    return (
-        <section className="w-full bg-white">
-            <div className="container text-center bg-[#302aaf] text-white font-bold rounded-b sticky top-0 bg_img">
-                <NavLink to="/recharge" className="-mt-2 text-4xl font-bold _hover:text-[#302aaf] absolute left-4 top-2">&#8249;</NavLink>
-                <h1 className="py-4">My Investment Statistics</h1>
-            </div>
-            <div className={`container flex relative h-[85vh] pt-4 overflow-x-hidden overflow-y-auto ${error && "!bg-[url('/imgs/no.png')] bg-no-repeat bg-contain bg-center"}`}>
-                {error ? <p className="text-center mt-[15rem] w-full text-[#302aaf] font-bold text-xl justify-self-center self-center">😢 Data not found</p> :
-                    <ul className="container self-center block h-full justify-self-start">
-                        <li className="container py-2 border-b-[0.5px] text-[0.8rem]">
-                            <p className="mb-2">T202408231236281236</p>
-                            <p className="mb-2">Deposit Money: &#8358;<span>850,000</span></p>
-                            <span className="flex items-center justify-between w-full ">
-                                <span className="text-[gray] text-[0.6rem]">Aug 23 2024 12:36</span>
-                                <span className="text-[#dac133]">Recharge in progress</span>
-                            </span>
-                        </li>
-                        <li className="container py-2 border-b-[0.5px] text-[0.8rem]">
-                            <p className="mb-2">T202408231236281236</p>
-                            <p className="mb-2">Deposit Money: &#8358;<span>850,000</span></p>
-                            <span className="flex items-center justify-between w-full ">
-                                <span className="text-[gray] text-[0.6rem]">Aug 23 2024 12:36</span>
-                                <span className="text-[#dac133]">Recharge in progress</span>
-                            </span>
-                        </li>
-                        <li className="container py-2 border-b-[0.5px] text-[0.8rem]">
-                            <p className="mb-2">T202408231236281236</p>
-                            <p className="mb-2">Deposit Money: &#8358;<span>850,000</span></p>
-                            <span className="flex items-center justify-between w-full ">
-                                <span className="text-[gray] text-[0.6rem]">Aug 23 2024 12:36</span>
-                                <span className="text-[#dac133]">Recharge in progress</span>
-                            </span>
-                        </li>
-                    </ul>}
-            </div>
-        </section>
-    )
+  return (
+    <section className='w-full bg-white'>
+      <div className='container text-center bg-[#302aaf] text-white font-bold rounded-b sticky top-0 bg_img flex justify-between items-center'>
+        <div
+          onClick={goBack}
+          className='text-4xl font-bold hover:text-[#302aaf] cursor-pointer'
+        >
+          &#8249;
+        </div>
+        <h1 className='py-4'>My Investment Statistics</h1>
+      </div>
+      <div
+        className={`container flex relative h-[85vh] pt-4 overflow-x-hidden overflow-y-auto ${
+          error && "!bg-[url('/imgs/no.png')] bg-no-repeat bg-contain bg-center"
+        }`}
+      >
+        {error ? (
+          <p className='text-center mt-[15rem] w-full text-[#302aaf] font-bold text-xl justify-self-center self-center'>
+            😢 Data not found
+          </p>
+        ) : (
+          <ul className='container self-center block h-full justify-self-start'>
+            <li className='container py-2 border-b-[0.5px] text-[0.8rem]'>
+              <p className='mb-2'>T202408231236281236</p>
+              <p className='mb-2'>
+                Deposit Money: &#8358;<span>850,000</span>
+              </p>
+              <span className='flex items-center justify-between w-full '>
+                <span className='text-[gray] text-[0.6rem]'>
+                  Aug 23 2024 12:36
+                </span>
+                <span className='text-[#dac133]'>Recharge in progress</span>
+              </span>
+            </li>
+            <li className='container py-2 border-b-[0.5px] text-[0.8rem]'>
+              <p className='mb-2'>T202408231236281236</p>
+              <p className='mb-2'>
+                Deposit Money: &#8358;<span>850,000</span>
+              </p>
+              <span className='flex items-center justify-between w-full '>
+                <span className='text-[gray] text-[0.6rem]'>
+                  Aug 23 2024 12:36
+                </span>
+                <span className='text-[#dac133]'>Recharge in progress</span>
+              </span>
+            </li>
+            <li className='container py-2 border-b-[0.5px] text-[0.8rem]'>
+              <p className='mb-2'>T202408231236281236</p>
+              <p className='mb-2'>
+                Deposit Money: &#8358;<span>850,000</span>
+              </p>
+              <span className='flex items-center justify-between w-full '>
+                <span className='text-[gray] text-[0.6rem]'>
+                  Aug 23 2024 12:36
+                </span>
+                <span className='text-[#dac133]'>Recharge in progress</span>
+              </span>
+            </li>
+          </ul>
+        )}
+      </div>
+    </section>
+  );
 }
